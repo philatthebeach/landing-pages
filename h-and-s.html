@@ -1,19 +1,98 @@
-HEALTH & SAFETY CHECK-IN
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health & Safety Check-In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-Today's Hazards
-• Moving machinery
-• Sharp edges
-• Electrical equipment
-• Hot surfaces
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
 
-Today's Verification Code
-[ __ ]
+        h1 {
+            color: #006747;
+        }
 
-☐ I have read and understood the hazards and controls.
+        .box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
 
-[ Continue ]
+        button {
+            background: #006747;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
---------------------------------
+        #attendance {
+            display: none;
+            margin-top: 20px;
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
 
-SEAtS Attendance Code
-482913
+<body>
+
+<h1>Workshop Health & Safety Check-In</h1>
+
+<div class="box">
+    <h2>Today's Hazards</h2>
+
+    <ul>
+        <li>Moving machinery</li>
+        <li>Sharp edges and tools</li>
+        <li>Electrical equipment</li>
+        <li>Noise and flying particles</li>
+    </ul>
+
+    <p>
+        Enter today's verification code displayed on the Hazard Board:
+    </p>
+
+    <input type="text" id="code" maxlength="2" placeholder="00">
+
+    <p>
+        <input type="checkbox" id="agree">
+        I acknowledge that I have read and understood today's hazards and control measures.
+    </p>
+
+    <button onclick="verify()">Continue</button>
+</div>
+
+<div id="attendance">
+    <h2>SEAtS Attendance Code</h2>
+
+    <p style="font-size:32px;">
+        <strong>482913</strong>
+    </p>
+
+    <p>Please enter this code into the SEAtS App.</p>
+</div>
+
+<script>
+function verify() {
+    const enteredCode = document.getElementById("code").value;
+    const agreed = document.getElementById("agree").checked;
+
+    if (enteredCode === "47" && agreed) {
+        document.getElementById("attendance").style.display = "block";
+    } else {
+        alert("Please enter today's verification code and acknowledge the hazards.");
+    }
+}
+</script>
+
+</body>
+</html>
