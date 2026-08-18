@@ -82,17 +82,92 @@
 </div>
 
 <script>
-function verify() {
-    const enteredCode = document.getElementById("code").value;
-    const agreed = document.getElementById("agree").checked;
 
-    if (enteredCode === "47" && agreed) {
-        document.getElementById("attendance").style.display = "block";
-    } else {
-        alert("Please enter today's verification code and acknowledge the hazards.");
+function getSession() {
+
+    const now = new Date();
+
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+
+    const currentTime = hour + (minute / 60);
+
+    if (currentTime >= 8.5 && currentTime < 10.5) {
+        return 1;
     }
-}
-</script>
 
+    if (currentTime >= 10.5 && currentTime < 12.5) {
+        return 2;
+    }
+
+    if (currentTime >= 13 && currentTime < 15) {
+        return 3;
+    }
+
+    if (currentTime >= 15 && currentTime < 17) {
+        return 4;
+    }
+
+    return 0;
+}
+
+
+function generateVerificationCode() {
+
+    const now = new Date();
+
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    const session = getSession();
+
+    if (session === 0) {
+        return "";
+    }
+
+    let code = (session * month) + day;
+
+    code = String(code).padStart(2, '0');
+
+    return code[1] + code[0];
+}
+
+
+function verify() {
+
+    const enteredCode =
+        document.getElementById("code").value.trim();
+
+    const agreed =
+        document.getElementById("agree").checked;
+
+    const expectedCode =
+        generateVerificationCode();
+
+    if (expectedCode === "") {
+
+        alert(
+            "No attendance session is currently active."
+        );
+
+        return;
+    }
+
+    if (enteredCode === expectedCode && agreed) {
+
+        document.getElementById("attendance")
+            .style.display = "block";
+
+    } else {
+
+        alert(
+            "Verification code incorrect or hazards not acknowledged."
+        );
+
+    }
+
+}
+
+</script>
 </body>
 </html>
