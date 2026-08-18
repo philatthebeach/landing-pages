@@ -35,6 +35,10 @@
             cursor: pointer;
         }
 
+        button:hover {
+            opacity: 0.9;
+        }
+
         #attendance {
             display: none;
             margin-top: 20px;
@@ -42,7 +46,14 @@
             padding: 15px;
             border-radius: 8px;
         }
+
+        #attendanceCode {
+            font-size: 38px;
+            font-weight: bold;
+            color: #006747;
+        }
     </style>
+
 </head>
 
 <body>
@@ -56,8 +67,8 @@
     <ul>
         <li>Covered footwear must be worn</li>
         <li>First Aid kit on northern wall</li>
-        <li>Defibrillator upstairs landing</li>
-        <li>Evacuation point outside main doors in carpark south west</li>
+        <li>Defibrillator located on upstairs landing</li>
+        <li>Evacuation point is outside the main doors in the south-west carpark</li>
     </ul>
 
     <p>
@@ -77,11 +88,11 @@
 
 <div id="attendance">
 
-    <h2>SEAtS Attendance Code</h2>
+    <h2>✅ Health & Safety Acknowledged</h2>
 
-    <div id="attendanceCode"
-         style="font-size:32px;font-weight:bold;">
-    </div>
+    <p>Your SEAtS Attendance Code:</p>
+
+    <div id="attendanceCode"></div>
 
     <p>Please enter this code into the SEAtS App.</p>
 
@@ -93,9 +104,30 @@
 
 function getSession() {
 
-    /* TEST MODE */
-    return 4;
+    const now = new Date();
 
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+
+    const currentTime = hour + (minute / 60);
+
+    if (currentTime >= 8.5 && currentTime < 10.5) {
+        return 1;
+    }
+
+    if (currentTime >= 10.5 && currentTime < 12.5) {
+        return 2;
+    }
+
+    if (currentTime >= 13.0 && currentTime < 15.0) {
+        return 3;
+    }
+
+    if (currentTime >= 15.0 && currentTime < 17.0) {
+        return 4;
+    }
+
+    return 0;
 }
 
 function generateVerificationCode() {
@@ -107,12 +139,15 @@ function generateVerificationCode() {
 
     const session = getSession();
 
+    if (session === 0) {
+        return "";
+    }
+
     let code = (session * month) + day;
 
     code = String(code).padStart(2, "0");
 
     return code[1] + code[0];
-
 }
 
 function getSlot() {
@@ -130,7 +165,6 @@ function getSlot() {
     const dayCode = days[new Date().getDay()];
 
     return dayCode + "-s" + getSession();
-
 }
 
 function verify() {
@@ -144,26 +178,33 @@ function verify() {
     const expectedCode =
         generateVerificationCode();
 
+    if (expectedCode === "") {
+
+        alert("No attendance session is currently active.");
+        return;
+    }
+
     if (enteredCode === expectedCode && agreed) {
 
         const slot = getSlot();
-
-        alert("Slot = " + slot);
 
         const code = attendanceCodes[slot];
 
         if (code && code !== "") {
 
-            document.getElementById("attendanceCode").innerHTML = code;
+            document.getElementById("attendanceCode")
+                .innerHTML = code;
 
         } else {
 
-            document.getElementById("attendanceCode").innerHTML =
+            document.getElementById("attendanceCode")
+                .innerHTML =
                 "No class scheduled for this session";
 
         }
 
-        document.getElementById("attendance").style.display = "block";
+        document.getElementById("attendance")
+            .style.display = "block";
 
     } else {
 
@@ -172,10 +213,10 @@ function verify() {
         );
 
     }
-
 }
 
 </script>
 
 </body>
+
 </html>
