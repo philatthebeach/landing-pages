@@ -33,6 +33,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 18px;
         }
 
         button:hover {
@@ -51,7 +52,22 @@
             font-size: 38px;
             font-weight: bold;
             color: #006747;
+            margin-bottom: 20px;
         }
+
+        #copyButton {
+            width: 100%;
+            padding: 18px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        #copyMessage {
+            margin-top: 15px;
+            color: green;
+            font-weight: bold;
+        }
+
     </style>
 
 </head>
@@ -94,11 +110,17 @@
 
     <div id="attendanceCode"></div>
 
+    <button id="copyButton" onclick="copyAttendanceCode()">
+        Copy Attendance Code
+    </button>
+
+    <div id="copyMessage"></div>
+
     <p>Please enter this code into the SEAtS App.</p>
 
 </div>
 
-<script src="attendance.js"></script>
+.js"></script>
 
 <script>
 
@@ -123,7 +145,7 @@ function getSession() {
         return 3;
     }
 
-    if (currentTime >= 15.0 && currentTime < 19.0) {
+    if (currentTime >= 15.0 && currentTime < 21.0) {
         return 4;
     }
 
@@ -165,6 +187,17 @@ function getSlot() {
     const dayCode = days[new Date().getDay()];
 
     return dayCode + "-s" + getSession();
+}
+
+function copyAttendanceCode() {
+
+    const code =
+        document.getElementById("attendanceCode").innerText;
+
+    navigator.clipboard.writeText(code);
+
+    document.getElementById("copyMessage").innerHTML =
+        "✅ Attendance code copied to clipboard.";
 }
 
 function verify() {
