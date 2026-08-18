@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Workshop Safety Notices Check-In</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
+
         body {
             font-family: Arial, sans-serif;
             max-width: 700px;
@@ -40,6 +43,7 @@
             padding: 15px;
             border-radius: 8px;
         }
+
     </style>
 </head>
 
@@ -48,12 +52,13 @@
 <h1>Workshop Safety Instructions</h1>
 
 <div class="box">
+
     <h2>Workshop Instructions</h2>
 
     <ul>
         <li>Covered footwear must be worn</li>
         <li>First Aid kit on northern wall</li>
-        <li>Defrib units upstairs Landing</li>
+        <li>Defrib units upstairs landing</li>
         <li>Evacuation point outside main doors in carpark south west</li>
     </ul>
 
@@ -65,27 +70,28 @@
 
     <p>
         <input type="checkbox" id="agree">
-        I acknowledge that I have read the site hazard board and understood all Instructions .
+        I acknowledge that I have read the site hazard board and understood all instructions.
     </p>
 
     <button onclick="verify()">Continue</button>
+
 </div>
 
 <div id="attendance">
+
     <h2>SEAtS Attendance Code</h2>
 
-    <p style="font-size:32px;">
-        <div id="attendanceCode"></div>
-    </p>
+    <div id="attendanceCode"
+         style="font-size:32px; font-weight:bold;">
+    </div>
 
     <p>Please enter this code into the SEAtS App.</p>
-</div>
-    
-attendance.js</script>
-    
-<script>
 
-console.log(attendanceCodes);
+</div>
+
+<script src="attendance.js"></script>
+
+<script>
 
 function getSession() {
 
@@ -115,7 +121,6 @@ function getSession() {
     return 0;
 }
 
-
 function generateVerificationCode() {
 
     const now = new Date();
@@ -131,11 +136,10 @@ function generateVerificationCode() {
 
     let code = (session * month) + day;
 
-    code = String(code).padStart(2, '0');
+    code = String(code).padStart(2, "0");
 
     return code[1] + code[0];
 }
-
 
 function verify() {
 
@@ -150,28 +154,30 @@ function verify() {
 
     if (expectedCode === "") {
 
-        alert(
-            "No attendance session is currently active."
-        );
-
+        alert("No attendance session is currently active.");
         return;
     }
 
     if (enteredCode === expectedCode && agreed) {
 
-        document.getElementById("attendance")
-            .style.display = "block";
+        document.getElementById("attendanceCode").innerHTML =
+            attendanceCodes["mon-s1"];
+
+        document.getElementById("attendance").style.display =
+            "block";
 
     } else {
 
         alert(
             "Verification code incorrect or hazards not acknowledged."
         );
-
     }
-
 }
 
 </script>
+
 </body>
+
 </html>
+
+   
