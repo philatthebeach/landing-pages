@@ -8,10 +8,10 @@ const attendanceCodes = {
     "tue-s1": "",
     "tue-s2": "",
     "tue-s3": "",
-    "tue-s4": "123456",
+    "tue-s4": "",
 
     "wed-s1": "157352",
-    "wed-s2": "736643",
+    "wed-s2": "101806",
     "wed-s3": "",
     "wed-s4": "",
 
