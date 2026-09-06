@@ -1,7 +1,7 @@
 const attendanceCodes = {
 
     "mon-s1": "612161",
-    "mon-s2": "440629",
+    "mon-s2": "440627",
     "mon-s3": "",
     "mon-s4": "",
 
