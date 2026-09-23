@@ -15,7 +15,7 @@ const attendanceCodes = {
     "wed-s3": "",
     "wed-s4": "",
 
-    "thu-s1": "081290",
+    "thu-s1": "964159",
     "thu-s2": "740555",
     "thu-s3": "",
     "thu-s4": "",
